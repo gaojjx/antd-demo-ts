@@ -1,24 +1,26 @@
 import React from 'react';
-import type { FC } from 'react';
-import { Button, ConfigProvider } from 'antd';
+import { ConfigProvider, Button } from 'antd';
 import 'antd/dist/antd.css';
 import './App.css';
 
-const App:FC = () =>{
+const withCustomTheme = (Component: React.ComponentType) => (
+  <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: '#00b96b',
+      },
+    }}
+  >
+    <Component />
+  </ConfigProvider>
+);
+
+const App: React.FC = () => {
   return (
     <div className="App">
       <Button type="primary">Primary Button</Button>
     </div>
   );
-}
-export default ()=>(
-  <ConfigProvider
-    theme={{
-      token: {
-        colorPrimary:'#00b96b',
-      }
-    }}
-    >
-    <App />
-  </ConfigProvider>
-);
+};
+
+export default withCustomTheme(App);
